@@ -45,8 +45,8 @@ config.schema.WateringSchedulesSchema = new Schema({
         unique: true,
     },
     schedules: [{
-        start: {type: "string"},
-        end: {type: "string"}
+        start: {type: String},
+        end: {type: String}
     }]
 }, {
     versionKey: false
