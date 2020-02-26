@@ -7,8 +7,7 @@ const bodyParser = require('body-parser');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
-
-const indexRouter = require('./routes/index');
+//routes
 const usersRouter = require('./routes/users');
 const wateringsRouter = require('./routes/waterings');
 const wateringManagementRouter = require('./routes/wateringManagement');
