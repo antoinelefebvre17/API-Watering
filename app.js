@@ -31,13 +31,12 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 
-app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/waterings', wateringsRouter);
 app.use('/wateringManagement', wateringManagementRouter);
 
 //Swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
