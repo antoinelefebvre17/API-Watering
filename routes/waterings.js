@@ -38,7 +38,7 @@ const getAllWatering = function (req, res, next) {
 };
 
 const getOneWatering = function (req, res) {
-    res.json(req.user);
+    res.json(req.watering);
 };
 
 const getByIdWatering = function (req, res, next, id) {
@@ -46,7 +46,7 @@ const getByIdWatering = function (req, res, next, id) {
         if (err) {
             next(err);
         } else {
-            req.user = watering;
+            req.watering = watering;
             next();
         }
     });

@@ -56,10 +56,41 @@ const schedulesWatering = function (req, res, next) {
     });
 };
 
+const getAllWateringSchedules = function (req, res, next) {
+    WateringSchedules.find(function (err, watering) {
+        if (err) {
+            next(err);
+        } else {
+            res.json(watering);
+        }
+    });
+};
+
+const getOneWateringSchedules = function (req, res) {
+    res.json(req.schedules);
+};
+
+const getByIdWateringSchedules = function (req, res, next, id) {
+    WateringSchedules.findOne({id_watering: id}, function (err, schedules) {
+        if (err) {
+            next(err);
+        } else {
+            req.schedules = schedules;
+            next();
+        }
+    });
+};
+
 router.route('/power')
     .post(powerWatering);
 
 router.route('/schedules')
-    .post(schedulesWatering);
+    .post(schedulesWatering)
+    .get(getAllWateringSchedules);
+
+router.route('/schedules/:wateringId')
+    .get(getOneWateringSchedules);
+
+router.param('wateringId', getByIdWateringSchedules);
 
 module.exports = router;

@@ -264,6 +264,45 @@
             }
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Watering management"
+        ],
+        "summary": "Get all watering schedules",
+        "responses": {
+          "200": {
+            "description": "All watering schedules",
+            "schema": {
+              "$ref": "#/definitions/wateringSchedules"
+            }
+          }
+        }
+      }
+    },
+    "/wateringManagement/schedules/{wateringId}": {
+      "parameters": [
+        {
+          "name": "wateringId",
+          "in": "path",
+          "required": true,
+          "description": "ID of watering that we want to find",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Watering management"
+        ],
+        "summary": "Get watering schedules with given ID",
+        "responses": {
+          "200": {
+            "description": "Watering schedule is found",
+            "schema": {
+              "$ref": "#/definitions/wateringSchedules"
+            }
+          }
+        }
       }
     }
   },
