@@ -1,35 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const config = require('../config/config');
 
-mongoose.connect('mongodb://127.0.0.1:27017/API-Watering', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const WateringPowerSchema = new Schema({
-    id_watering: {type: mongoose.Schema.ObjectId},
-    power: {type: Boolean},
-    time: {type: Date}
-}, {
-    versionKey: false
-});
-
-mongoose.model('WateringPower', WateringPowerSchema);
+mongoose.model('WateringPower', config.schema.WateringPowerSchema);
 const WateringPower = require('mongoose').model('WateringPower');
 
-const WateringSchedulesSchema = new Schema({
-    id_watering: {
-        type: mongoose.Schema.ObjectId,
-        unique: true,
-    },
-    schedules: [{
-        start: {type: "string"},
-        end: {type: "string"}
-    }]
-}, {
-    versionKey: false
-});
-
-mongoose.model('WateringSchedules', WateringSchedulesSchema);
+mongoose.model('WateringSchedules', config.schema.WateringSchedulesSchema);
 const WateringSchedules = require('mongoose').model('WateringSchedules');
 
 const powerWatering = function (req, res, next) {

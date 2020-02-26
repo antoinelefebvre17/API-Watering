@@ -1,23 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const config = require('../config/config');
 
-mongoose.connect('mongodb://127.0.0.1:27017/API-Watering', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const UserSchema = new Schema({
-  email: {
-    type: String, required: true,
-    trim: true, unique: true,
-    match: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
-  },
-  firstName: {type: String},
-  lastName: {type: String}
-}, {
-  versionKey: false
-});
-
-mongoose.model('User', UserSchema);
+mongoose.model('User', config.schema.UserSchema);
 const User = require('mongoose').model('User');
 
 //middleware for create

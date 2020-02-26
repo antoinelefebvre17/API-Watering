@@ -1,18 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const config = require('../config/config');
 
-mongoose.connect('mongodb://127.0.0.1:27017/API-Watering', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const WateringSchema = new Schema({
-    id_user: {type: mongoose.Schema.ObjectId},
-    name: {type: String}
-}, {
-    versionKey: false
-});
-
-mongoose.model('Watering', WateringSchema);
+mongoose.model('Watering', config.schema.WateringSchema);
 const Watering = require('mongoose').model('Watering');
 
 const createWatering = function (req, res, next) {
