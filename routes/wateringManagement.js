@@ -16,7 +16,23 @@ const WateringPowerSchema = new Schema({
 mongoose.model('WateringPower', WateringPowerSchema);
 const WateringPower = require('mongoose').model('WateringPower');
 
-const powerWatering = function (req, res) {
+const WateringSchedulesSchema = new Schema({
+    id_watering: {
+        type: mongoose.Schema.ObjectId,
+        unique: true,
+    },
+    schedules: [{
+        start: {type: "string"},
+        end: {type: "string"}
+    }]
+}, {
+    versionKey: false
+});
+
+mongoose.model('WateringSchedules', WateringSchedulesSchema);
+const WateringSchedules = require('mongoose').model('WateringSchedules');
+
+const powerWatering = function (req, res, next) {
     const wateringPower = new WateringPower(req.body);
 
     wateringPower.save(function (err) {
@@ -25,9 +41,25 @@ const powerWatering = function (req, res) {
         } else {
             res.json(wateringPower);
         }
-    });};
+    });
+};
+
+const schedulesWatering = function (req, res, next) {
+    const wateringSchedules = new WateringSchedules(req.body);
+
+    wateringSchedules.save(function (err) {
+        if (err) {
+            next(err);
+        } else {
+            res.json(wateringSchedules);
+        }
+    });
+};
 
 router.route('/power')
     .post(powerWatering);
+
+router.route('/schedules')
+    .post(schedulesWatering);
 
 module.exports = router;

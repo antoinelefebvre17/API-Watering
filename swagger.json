@@ -236,6 +236,35 @@
           }
         }
       }
+    },
+    "/wateringManagement/schedules": {
+      "post": {
+        "tags": [
+          "Watering management"
+        ],
+        "summary": "Set schedules for a watering",
+        "parameters": [
+          {
+            "name": "wateringSchedules",
+            "in": "body",
+            "description": "Set schedules for a watering",
+            "schema": {
+              "$ref": "#/definitions/wateringSchedules"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Schedules of watering is managed",
+            "schema": {
+              "$ref": "#/definitions/wateringSchedules"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -302,7 +331,7 @@
     },
     "wateringPower": {
       "required": [
-        "id_user",
+        "id_watering",
         "power"
       ],
       "properties": {
@@ -315,6 +344,33 @@
         "time": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "wateringSchedules": {
+      "required": [
+        "id_watering",
+        "schedules"
+      ],
+      "properties": {
+        "id_watering": {
+          "type": "string"
+        },
+        "schedules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start": {
+                "type": "string",
+                "format": "^([0-1][0-9]|[2][0-3]):([0-5][0-9])$"
+              },
+              "end": {
+                "type": "string",
+                "format": "^([0-1][0-9]|[2][0-3]):([0-5][0-9])$"
+              }
+            }
+          }
         }
       }
     }
