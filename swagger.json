@@ -233,6 +233,34 @@
         }
       }
     },
+    "/wateringManagement/power/{wateringPowerId}": {
+      "get": {
+        "tags": [
+          "Watering management"
+        ],
+        "summary": "Get all start (true) or end (false) a watering in system",
+        "parameters": [
+          {
+            "name": "wateringPowerId",
+            "in": "path",
+            "required": true,
+            "description": "ID of watering that we want to find",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Power of watering is managed",
+            "schema": {
+              "$ref": "#/definitions/wateringPower"
+            }
+          }
+        }
+      }
+    },
     "/wateringManagement/schedules": {
       "post": {
         "tags": [

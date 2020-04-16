@@ -35,6 +35,16 @@ const schedulesWatering = function (req, res, next) {
     });
 };
 
+const getPowerWatering = function (req, res, next) {
+    WateringPower.find({id_watering: req.params.wateringPowerId}, function (err, wateringPower) {
+        if (err) {
+            next(err);
+        } else {
+            res.json(wateringPower);
+        }
+    });
+};
+
 const getAllWateringSchedules = function (req, res, next) {
     WateringSchedules.find(function (err, watering) {
         if (err) {
@@ -62,6 +72,9 @@ const getByIdWateringSchedules = function (req, res, next, id) {
 
 router.route('/power')
     .post(powerWatering);
+
+router.route('/power/:wateringPowerId')
+    .get(getPowerWatering);
 
 router.route('/schedules')
     .post(schedulesWatering)
